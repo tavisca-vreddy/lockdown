@@ -12,4 +12,8 @@
    in main application.yml use spring.profiles.active=<profile-name>
     while building jar we can use different profiles like we can override spring.profiles.active property from
     command "java -jar <jarname> --spring.profiles.active=qa"
+
+   Note:assume in appilcation.yml there are three keys .first ,second and third one is profile one
+        in application-dev.yml there will be only first key..noe if use qa profile as active then 
+        two profiles are active(default and qa)..qa keys will override default keys
   
