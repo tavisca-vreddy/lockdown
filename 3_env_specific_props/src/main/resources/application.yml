@@ -1,0 +1,6 @@
+environment: qa # this is overriden by profiles
+localone: this is not declared in any profile so this is not over ridden
+spring.profiles.active: qa #used to tell spring which profile has pick (defalut,dev,qa,stage)
+
+#use below command to pick application prop of required profile after building jar at once on dev
+# java -jar <jarName> --spring.profiles.active=stage

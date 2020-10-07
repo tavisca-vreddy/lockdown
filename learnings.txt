@@ -1,0 +1,15 @@
+1.how to use @value for accessing props data ..it can be either .props or .yaml..for both same syntax
+  a.use direct key in @value
+  b.use @configurationproperties and create seperate class for grouping some properties like db things
+
+
+2.props can be .properties OR .yml files
+  .yaml removes duplicate keys..syntax to remove duplicate keys is semicolon
+  in yaml files we can use exactly same like .properties file
+
+3.environment specific using spring profiles
+  use application-<profile>.yml OR applicaton-<profile>.properties
+   in main application.yml use spring.profiles.active=<profile-name>
+    while building jar we can use different profiles like we can override spring.profiles.active property from
+    command "java -jar <jarname> --spring.profiles.active=qa"
+  

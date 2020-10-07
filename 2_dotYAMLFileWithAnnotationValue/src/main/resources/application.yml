@@ -1,0 +1,13 @@
+#here combination of dots and semicolons will work  in yaml files
+spring.application.name: checking YAML properties with Annotations of VALUE and CONFIGURATION_PROPERTIES
+
+server.port: 8888
+
+db:
+  connectionstring: "http:://posgresql?public"
+  username: myusername
+  password: mypassword
+
+mymessage.greetings: welcome to YAML properties leaarning
+
+
