@@ -7,3 +7,11 @@ spring:
                uri: http://localhost:8181
 
 server.port: 8686
+
+# Spring Boot Actuator // below key is used to expose all actuator links by default it will expoxe some
+# but by default it will not expose some like refesh endpoint so have to use below one for refresh endpoint
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
