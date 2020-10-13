@@ -30,8 +30,12 @@
    a.we can use RestTemplate to call other micro services..
      just initialize been with @bean and no sepearte dependency is not required
      ..but rest template is going to deprcate use webclient
-     excercises done for get and post request check repo
-   b.
+     excercises done for get and post request check repo..
+      only sync calls for rest template
+    
+   b.use WebClient for this dependency name is "reactive web" ..so using this web client api calls code 
+     will be in react tech type..main singnificance is we can do sync and async calls with this approach..
+     excercise failed using webclient..learn webclient after some days 
 
 6.while communicating services between they need uri's to communicate with others
   doing hardcoding and application.properties is not good way ..because services deployed is dynamically so ip addresses are
@@ -39,7 +43,7 @@
   so netflix provided a open source solution ..one of them is eureka server..
   eureka server used as registry so that each service will get other service uris..
    dont need to install eureka server,..spring provided abstract api which will internally call eureka one..
-  yhis eureka will be used as one seperate service.
+  This eureka will be used as one seperate service.
   while createing spring-cloud eureka server..dependency  "Eureka-Server" will be added"
   all clients(main services) are regiestered in Eureka server..Eureka Server is also a Eureka client so that eureka servers(more than one will communicate)
   Eureka server is a client side discovery not a server side discovery but all are abstracted by spring

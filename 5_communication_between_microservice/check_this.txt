@@ -1,2 +1,3 @@
 1.in resttemplate and weclient excercises only change is movie catalague service(which call other microservices).
   only change is callinf other rest apis
+2.In Webclient only implemented movie catalague ..use rest template one to test
