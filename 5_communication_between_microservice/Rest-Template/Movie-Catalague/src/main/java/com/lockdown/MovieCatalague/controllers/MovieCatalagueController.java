@@ -6,6 +6,7 @@ import com.lockdown.MovieCatalague.models.movieInfoService.Movie;
 import com.lockdown.MovieCatalague.models.ratingService.MovieRating;
 import com.lockdown.MovieCatalague.models.ratingService.UserRatingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
@@ -20,18 +21,24 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/movieCatalague")
 public class MovieCatalagueController {
+    @Autowired
+    private DiscoveryClient discoveryClient;
+    //this is used alternate method where other service name goes to props file.dicoberyClint.get(service-name) will give instance
+    //explored that discovery client
+
+
      @Autowired
     private RestTemplate restTemplateClient;
     @GetMapping("/{userId}")
     public ResponseEntity<?> getMovieRatingsByUserId(@PathVariable int userId)
     {
         //getting movieid's rated by user using userId
-       UserRatingResponse ratingSrviceReponse=restTemplateClient.getForObject("http://localhost:8088/ratings/"+userId,UserRatingResponse.class);
+       UserRatingResponse ratingSrviceReponse=restTemplateClient.getForObject("http://movie-rating-service/ratings/"+userId,UserRatingResponse.class);
         List<MovieRating> movieRatingList=ratingSrviceReponse.getMovieRatingList();
 
         //getting movie descriptions
         List<MovieRatingMapping> mapping=movieRatingList.stream().map(movieRating -> {
-            Movie movie=restTemplateClient.getForObject("http://localhost:8089/movies/"+movieRating.getMovieId(), Movie.class);
+            Movie movie=restTemplateClient.getForObject("http://movie-info-service/movies/"+movieRating.getMovieId(), Movie.class);
             return new MovieRatingMapping(movie.getName(),movie.getDescription(),movieRating.getRating(),movie.getId());
         }).collect(Collectors.toList());
         RatingResponse response=new RatingResponse(mapping);
@@ -43,7 +50,7 @@ public class MovieCatalagueController {
     {
         //check moive id is present or not
         try {
-            restTemplateClient.getForEntity("http://localhost:8089/movies/" + movieRating.getMovieId(), Movie.class);
+            restTemplateClient.getForEntity("http://movie-info-service/movies/" + movieRating.getMovieId(), Movie.class);
         }catch (HttpClientErrorException e)
         {
             if(e.getStatusCode()==HttpStatus.NOT_FOUND)
@@ -51,7 +58,7 @@ public class MovieCatalagueController {
         }
 
         //if movieid present  insert into rating service
-        restTemplateClient.postForObject("http://localhost:8088/ratings/"+userId,movieRating,MovieRating.class);
+        restTemplateClient.postForObject("http://movie-rating-service/ratings/"+userId,movieRating,MovieRating.class);
         return new ResponseEntity<MovieRating>(movieRating,HttpStatus.OK);
     }
 }

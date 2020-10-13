@@ -32,6 +32,26 @@
      ..but rest template is going to deprcate use webclient
      excercises done for get and post request check repo
    b.
+
+6.while communicating services between they need uri's to communicate with others
+  doing hardcoding and application.properties is not good way ..because services deployed is dynamically so ip addresses are
+  assigned dnamically..so service discovery is the concept came into picture..
+  so netflix provided a open source solution ..one of them is eureka server..
+  eureka server used as registry so that each service will get other service uris..
+   dont need to install eureka server,..spring provided abstract api which will internally call eureka one..
+  yhis eureka will be used as one seperate service.
+  while createing spring-cloud eureka server..dependency  "Eureka-Server" will be added"
+  all clients(main services) are regiestered in Eureka server..Eureka Server is also a Eureka client so that eureka servers(more than one will communicate)
+  Eureka server is a client side discovery not a server side discovery but all are abstracted by spring
+  client side discovery --giving another service uri by eureka server
+  server side discovery--seb=nd message to service via server side discoveryservice..thos will send request..it acts as gateway
+  ..all micro services has to be register so a dependency called  "eureka client" has to be added to all micro services dependices
+  Eureka server is also do load balancing ..think about this
+  ..there can be situation where services will be down but eureka server eill give uri of service.so to avoid this clients
+   will send heart beats continuosly..if heartbeat doestn't vcame from service then eureka will remove that service from registry..
+  no need to write single line of code in eureka server ..just update props and aadd @EnableEurekaServer thats it..
+  ..In in microservices(eureka client) include one dependency and some props has to be included to register in eureka server
+
   
       
      
